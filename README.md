@@ -1,5 +1,5 @@
 # m5_sensorhub
-A hub for different sensors connected to the M5AtomS3 PoE version
+A program that will measure various quantities (like temperature, CO and gas) using the M5AtomS3 PoE version.
 
 ## Components
 For this application connect the following components:
@@ -10,7 +10,7 @@ For this application connect the following components:
 - [Grove Gas sensor MQ9](https://wiki.seeedstudio.com/Grove-Gas_Sensor-MQ9/) developed for Arduino. Equipped with the _MQ9_-sensor
 - 4 I2C cables
 
-Wiring up:
+### Wiring up
 - Put the Atom display on the Atom PoE module.
 - Connect the I2C hub to the Atom PoE module via an I2C cable.
 - Now connect the 3 different sensor modules to the I2C hub via I2C cables.
@@ -26,6 +26,3 @@ Also install the following libraries in the Arduino IDE (using the _Sketch_ &rar
 
 ![The Manage Libraries menu](https://github.com/martin-de-boer/m5_sensorhub/assets/67046979/2ca77eae-380b-415b-9827-7aabb3d10e09)
 
-## Examples
-
-##
