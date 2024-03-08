@@ -9,11 +9,11 @@ For this application connect the following components:
 
 ## Installation
 To install the board in the Arduino IDE, follow this tutorial: [Quick Start AtomS3 in Arduino IDE](https://docs.m5stack.com/en/quick_start/atoms3/arduino)
-Also install the following libraries in the Arduino IDE (using the _Sketch_ &rarr _Include Library_ &rarr _Manage Libraries_ menu):
+Also install the following libraries in the Arduino IDE (using the _Sketch_ &rarr; _Include Library_ &rarr; _Manage Libraries_ menu):
 - M5AtomS3
 - Adafruit SGP30 Sensor
 - M5Unit-ENV
-
+![The Manage Libraries menu](https://github.com/martin-de-boer/m5_sensorhub/assets/67046979/2ca77eae-380b-415b-9827-7aabb3d10e09)
 ## Examples
 
 ##
