@@ -7,7 +7,10 @@ For this application the following components were connected to the _M5AtomS3_:
 - [ENV. III Sensor Unit](https://docs.m5stack.com/en/unit/envIII) developed for M5Stack. Equipped with the _QMP6988_-sensor and _SHT30_-sensor
 
 ## Installation
-
+To install the board, go to the Arduino settings and paste this link in the
+Install the following libraries in the Arduino IDE:
+- M5AtomS3
+- Adafruit SGP30
 ## Examples
 
 ##
