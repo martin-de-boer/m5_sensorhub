@@ -16,7 +16,8 @@ For this application connect the following components:
 - Connect the I2C hub to the Atom PoE module via an I2C cable.
 - Now connect the 3 different sensor modules to the I2C hub via I2C cables.
 
-_image will be inserted later_
+![I2C Circuit Connection](https://github.com/martin-de-boer/m5_sensorhub/assets/67046979/f5e79a2d-a6f5-4f59-9392-6dc2f7acf914)
+
 
 ## Installation
 To install the board in the Arduino IDE, follow this tutorial: [Quick Start AtomS3 in Arduino IDE](https://docs.m5stack.com/en/quick_start/atoms3/arduino)  
