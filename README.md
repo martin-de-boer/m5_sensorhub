@@ -1,16 +1,19 @@
 # m5_sensorhub
-A hub for different sensors connected to the M5AtomS3
+A hub for different sensors connected to the M5AtomS3 PoE version
 
 ## Components
-For this application the following components were connected to the _M5AtomS3_:
+For this application connect the following components:
+- [M5Atom PoE version](https://docs.m5stack.com/en/atom/atom_poe)
 - [Mini TVOC/eCO2 Gas Unit](https://docs.m5stack.com/en/unit/tvoc) developed for M5Stack. Equipped with the _SGP30_-sensor
 - [ENV. III Sensor Unit](https://docs.m5stack.com/en/unit/envIII) developed for M5Stack. Equipped with the _QMP6988_-sensor and _SHT30_-sensor
 
 ## Installation
-To install the board, go to the Arduino settings and paste this link in the
-Install the following libraries in the Arduino IDE:
+To install the board in the Arduino IDE, follow this tutorial: [Quick Start AtomS3 in Arduino IDE](https://docs.m5stack.com/en/quick_start/atoms3/arduino)
+Also install the following libraries in the Arduino IDE (using the _Sketch_ &rarr _Include Library_ &rarr _Manage Libraries_ menu):
 - M5AtomS3
-- Adafruit SGP30
+- Adafruit SGP30 Sensor
+- M5Unit-ENV
+
 ## Examples
 
 ##
