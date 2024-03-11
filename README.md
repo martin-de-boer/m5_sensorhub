@@ -28,3 +28,5 @@ Also install the following libraries in the Arduino IDE (using the _Sketch_ &rar
 
 ![The Manage Libraries menu](https://github.com/martin-de-boer/m5_sensorhub/assets/67046979/2ca77eae-380b-415b-9827-7aabb3d10e09)
 
+## Docs
+See the ![documentation](https://martin-de-boer.github.io/m5_sensorhub/) for more information.
