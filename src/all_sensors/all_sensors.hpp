@@ -1,5 +1,5 @@
-#ifndef ALL_SENSORS_H
-  #define ALL_SENSORS_H
+#ifndef ALL_SENSORS_HPP
+  #define ALL_SENSORS_HPP
 #endif
 
 
