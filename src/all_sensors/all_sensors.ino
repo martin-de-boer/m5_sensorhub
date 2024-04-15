@@ -1,8 +1,10 @@
-#include "all_sensors.h"
+#include "all_sensors.hpp"
 
+#include <M5Unified.h>
 #include <sstream>
 #include <iomanip>
 #include "M5AtomS3.h"
+#include <Wire.h>
 
 
 // ENV-III Sensor
@@ -15,7 +17,6 @@ Adafruit_SGP30 sgp;
 // Grove Gas Sensor
 int grove_gas_sensor_pin = G1;
 float R0;
-// struct mq9
 
 // Variables for all sensors
 std::string sensor_names[] = { "SHT30", "QMP6988", "SGP30", "MQ9" };
@@ -158,6 +159,13 @@ const char* getMQ9dataStr(float ratio) {
 /*
  * Displays two lines at the bottom of the AtomS3 screen.
  * 
+ * @param str1 - the string to display on the first line, via std::string.c_str()
+ * @param str2 - the string to display on the second line, via std::string.c_str()
+ * @param alignment - the anchor of the text (display centered via top_center and left-aligned via top_left)
+ * @param color - the color of the text
+ * @param y1 - alternate y-position for the first line
+ * @param y2 - alternate y-position for the second line
+ * @param text_size - optional scaling multiplier for the font size
  */
 void displayTwoLineString(const char* str1, const char* str2, uint8_t alignment, int color, int y1=75, int y2=95, int text_size=1.0f) {
   AtomS3.Display.setTextDatum(alignment);
@@ -197,16 +205,41 @@ void setup() {
   // Atom display settings
   AtomS3.Display.setFont(&fonts::FreeSansBold9pt7b);
 
-  // Initializing ENV-III sensor
-  if (!qmp.begin(&Wire, QMP6988_SLAVE_ADDRESS_L, 2, 1, 400000U))
-    throwError("ENV-III sensor (QMP6988) was not found", "QMP6988", "not found");
+  // Initializing the grove gas sensor
+  Wire.begin()
 
-  if (!sht.begin(&Wire, SHT3X_I2C_ADDR, 2, 1, 400000U))
-    throwError("ENV-III sensor (SHT30) was not found", "SHT30", "not found");
+  // Initializing the QMP6988 from the ENV-III sensor
+  int fail_count = 0;
+  while (!qmp.begin(&Wire, QMP6988_SLAVE_ADDRESS_L, 2, 1, 400000U)) {
+    Serial.println("Reattempting connection with QMP6988...");
+
+    // Throw an error if connection fails 10 times
+    fail_count++;
+    if (fail_count > 10)
+      throwError("ENV-III sensor (QMP6988) was not found", "QMP6988", "not found");
+  }
+
+  // Initializing the SHT30 from the ENV-III sensor
+  fail_count = 0;
+  while (!sht.begin(&Wire, SHT3X_I2C_ADDR, 2, 1, 400000U)) { 
+    Serial.println("Reattempting connection with SHT30...");
+
+    // Throw an error if connection fails 10 times
+    fail_count++;
+    if (fail_count > 10) 
+      throwError("ENV-III sensor (SHT30) was not found", "SHT30", "not found");
+  }
 
   // Initializing SGP30
-  if (!sgp.begin())
-    throwError("Mini TVOC/eCO2 sensor (SGP30) was not found", "SGP30", "not found");
+  fail_count = 0;
+  while (!sgp.begin()) {
+    Serial.println("Reattempting connection with SGP30...");
+
+    // Throw an error if connection fails 10 times
+    fail_count++;
+    if (fail_count > 10) 
+      throwError("Mini TVOC/eCO2 sensor (SGP30) was not found", "SGP30", "not found");
+  }
 
   // Calibration of CO/Gas sensor
   int iterations = 2000;
@@ -274,9 +307,9 @@ void loop() {
 
   // Check for problems, otherwise print eCO2 and TVOC values
   AtomS3.Display.setTextSize(1);
-  if (sgp.TVOC > 1000 || sgp.eCO2 > 2500) 
+  if (sgp.TVOC > 2000 || sgp.eCO2 > 3000) 
     displayTwoLineString("Harmful air", "Evacuate!", top_center, RED);
-  else if (sgp.TVOC > 250 || sgp.eCO2 > 1200)
+  else if (sgp.TVOC > 400 || sgp.eCO2 > 1200)
     displayTwoLineString("Air may be", "harmful", top_center, YELLOW);
   else if (abs(sht.cTemp - qmp.cTemp) >= 2.0)
     displayTwoLineString("Temperature", "not accurate", top_center, YELLOW);
@@ -284,7 +317,8 @@ void loop() {
     displayTwoLineString(
       ("eCO2: " + std::to_string(sgp.eCO2) + " ppm").c_str(), 
       ("TVOC: " + std::to_string(sgp.TVOC) + " ppb").c_str(), 
-      top_left, GREEN);
+      top_left, GREEN
+    );
 
   delay(1000);
 }
